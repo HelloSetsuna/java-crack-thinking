@@ -48,7 +48,7 @@ public class Main {
 
 ## 使用
 1. 将 `./jar` 目录下的 jar 包放置到系统的某个目录 如 `/opt` 下.
-2. 在 软件的启动命令开头的`java` 后面插入 `-javaagent:/opt/java-trace-agent.jar` 具体使用请自行查询学习 javaagent 相关知识.
+2. 在 软件的启动命令开头的`java` 后面插入 `-javaagent:/opt/java-crack-agent.jar` 具体使用请自行查询学习 javaagent 相关知识.
 
 ## 反思
 在尝试按照 用 `javaagent` 去修改 JDK 的类的字节码的思路看问题的话, 我们如何才能做到更安全的将 Java 软件交付到客户的手中, 并实施一些授权验证的措施? 虚心请教 []~(￣▽￣)~* 烦请留言~
