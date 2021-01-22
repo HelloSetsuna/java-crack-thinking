@@ -33,7 +33,7 @@ public class JavaCrackAgent {
             @Override
             public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
                 // 避免不必要的判断 减少 javaagent 对类加载时间的影响
-                if (rewriteId > 2) {
+                if (rewriteId > 1) {
                     return null;
                 }
                 // 使用 javassist 工具修改 java 自身的 signature 的返回值， 使其一直返回 true
@@ -45,13 +45,13 @@ public class JavaCrackAgent {
                         for (CtMethod method : methods) {
                             System.out.println("\n [" + rewriteId + "] JavaCrackAgent rewrite java.security.Signature # verify(...)\n");
                             method.setBody("{return true;}");
-                            byte[] byteCode = clazz.toBytecode();
-                            // detach 的意思是将内存中曾经被 javassist 加载过的类移除
-                            // 如果下次有需要在内存中 找不到会 重新走 javassist 加载
-                            clazz.detach();
-                            rewriteId ++;
-                            return byteCode;
                         }
+                        byte[] byteCode = clazz.toBytecode();
+                        // detach 的意思是将内存中曾经被 javassist 加载过的类移除
+                        // 如果下次有需要在内存中 找不到会 重新走 javassist 加载
+                        clazz.detach();
+                        rewriteId ++;
+                        return byteCode;
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
